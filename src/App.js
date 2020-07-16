@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ResultsTable from "./components/ResultsTable";
+import Form from "./components/Form";
 
 function App() {
+  const [activeTab, setActiveTab] = useState("results");
+  const selectTab = (tab) => {
+    setActiveTab(tab);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="container pt-5">
+      <div className="tabs divider">
+        <button
+          type="button"
+          className={`btn ${activeTab === "results" ? "active" : ""}`}
+          onClick={() => selectTab("results")}
         >
-          Learn React
-        </a>
-      </header>
+          Student Results
+        </button>
+        <button
+          type="button"
+          className={`btn ${activeTab === "admissions" ? "active" : ""}`}
+          onClick={() => selectTab("admissions")}
+        >
+          New Admission
+        </button>
+      </div>
+      {activeTab === "results" && <ResultsTable />}
+      {activeTab === "admissions" && <Form />}
     </div>
   );
 }
